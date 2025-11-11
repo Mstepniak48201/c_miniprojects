@@ -1,2 +1,2 @@
-# c_miniprojects
-A learning repository of annotated mini projects in C to be used as a reference
+# C Mini Projects
+A learning repository of annotated miniature projects in C to be used as a reference
