@@ -3,36 +3,40 @@
 #include <limits.h>
 
 // Prototypes
-int get_length(int i, char *argv[]);
-void populate_args(int len, int index, char *argv[], int *result);
+void print_int_loop(int len, int *arr); // Helper function to print int arrays.
+int get_length(int i, char *argv[]); // Get length of 1st command line arg
+int convert_to_int_arr(int n, int len, int *arr); // Convert int to array of ints -> returns length of array
+int convert_argv(int len, char *argv[], int *arr); // Convert the 1st command line arg to array of ints
 
+// Main
 int main(int argc, char *argv[])
-{
-  /*
-  int max_int = INT_MAX;
-  int max_int_length = sizeof(max_int) / sizeof(max_int[0]);
-  printf("%d\n", max_int_length);
-  */  
-  int length = get_length(1, argv);
-  int args[length];
-
-  // Pass `args` as the namespace, not a pointer to array!
-  populate_args(length, 1, argv, args);
-
-  int i;
-  for (i = 0; i < length; i++)
-  {
-    printf("%d", args[i]);
-  }
-  printf("\n");
+{ 
+  int arg_length = get_length(1, argv);
+  int int_max = INT_MAX;
+  int int_max_arr[12];
+  int int_max_length = convert_to_int_arr(int_max, 12, int_max_arr); // Get length of INT_MAX - populate array with discrete ints
+  int args[arg_length];
+  convert_argv(arg_length, argv, args); // Populate args array with discrete ints, i.e., {123} becomes {1, 2, 3}.
   
+  // Tests
+  print_int_loop(int_max_length, int_max_arr);
+  printf("length of arg: %d\n", arg_length); 
+  printf("int_max length: %d\n", int_max_length);
+  printf("args array:\n");
+  print_int_loop(arg_length, args);
   return 0;
 }
 
-// Remember: *argv[] is AN ARRAY OF POINTERS TO STRINGS!
-// Strings are null-terminated character arrays.
-// This means I can test where the string ends by searching for the character literal '\0'
-// Pass in *argv as a pointer!
+// Function Definitions
+void print_int_loop(int len, int *arr)
+{
+  int i;
+  for (i = 0; i < len; i++)  
+  {
+    printf("arr[%d]: %d\n", i, arr[i]);
+  }
+}
+
 int get_length(int i, char *argv[])
 {
   int length = 0;
@@ -43,37 +47,33 @@ int get_length(int i, char *argv[])
   return length;
 }
 
-// 
-void populate_args(int len, int index, char *argv[], int *args)
+// Function expects type "pointer to int" (int*) and arr will be passeds as the namespace of the array.
+// Once arr is passed, its namespace decays to a pointer to the first element: arr[0].
+int convert_to_int_arr(int n, int len, int *arr)
 {
-  int i;
-  for (i = 0; i < len; i++) 
+  // Convert input n to null-terminated char array.
+  char separate_chars[len];
+  sprintf(separate_chars, "%d", n);
+
+  // Populate external array with ints
+  int i = 0;
+  while (separate_chars[i] != '\0')
   {
-    args[i] = argv[index][i] - '0';
+    arr[i] = separate_chars[i] - '0';
+    i++;
   }
+  return i;
 }
 
-
-
-/*
-// Prototypes
-void get_size(int *sz_int, int *sz_long, int *sz_long_long);
-
-int main(int argc, char *argv[])
+// argv[] is passed to the function as an array of character pointers
+// Using array subscript notation, the function dereferences, first, the pointer to the second char array within argv, and then the first characterin that char array.
+int convert_argv(int len, char *argv[], int *arr)
 {
-  int sz_int, sz_long, sz_long_long;
-  get_size(&sz_int, &sz_long, &sz_long_long);
-  printf("Size of an int: %d\nSize of a long int: %d\nSize of a long long: %d\n", sz_int, sz_long, sz_long_long);
-  printf("The MAX size of an int is: %d\n", INT_MAX);
+  int i = 0;
+  while (i < len) 
+  {
+    arr[i] = argv[1][i] - '0';
+    i++;
+  }
   return 0;
 }
-
-// Function definitions
-void get_size(int *sz_int, int *sz_long, int *sz_long_long)
-{
-  *sz_int = sizeof(int);
-  *sz_long = sizeof(long int);
-  *sz_long_long = sizeof(long long);
-}
-*/
-

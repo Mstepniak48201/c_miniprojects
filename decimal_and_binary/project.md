@@ -41,8 +41,8 @@ The first thing to do, it seems to me, is to determine the type of the number in
 Starter Logic:  
 ```
 // Pseudo code
-int MAX_INT
-int int_length = length of MAX_INT
+int INT_MAX
+int int_length = length of INT_MAX
 int argv_length = length of number arg of argv
 int equality_counter = 0
 
@@ -69,7 +69,20 @@ if equality_counter == max_int length
   return 0
 ```
 
+### Planning Update 10.17
+Goal: Determine data type of command line argument  
+- To get, To do:  
+[X] Length of `INT_MAX`  
+[X] Length of `argv[1]`- The command line arg when running the program.  
+    [ ] Compare them to determine if type `int` or `long long`.  
+
+[X] Array of ints from `INT_MAX`. 
+[X] Array of ints from `argv[1]`.  
+    [ ] Compare them to determine if type `int` or `long long`.
+
+
 - Refinements:  
+[ ] Error handling: single command line arg required, must be digits only
 [ ] Accept negative numbers  
 [ ] Strip leading zeros
 
