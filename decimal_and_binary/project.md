@@ -16,9 +16,12 @@ If the program doesn't receive two command line args, it should return an error 
 - long int:  
 This program will consider ints larger than 4 bytes to be long longs. I am in a bit over my head at this point, If I am understanding correctly, it has been nearly 20 years since 32 bit systems were widely produced, and the data type `long int` is an artifact of that era. I am doing this to learn, not to be a perfectionist, and 64 bit systems are the standard, so that is where I will focus.
 
+<<<<<<< HEAD
 - strtol():
 I will not use `strtol()` in this program. `strtol()` is capable of taking in a string and outputting long int as a binary or decimal. The problem is that using `strtol()` negates the point of writing this program: to learn. Using `strtol()` to convert a char to a long and casting to int, but not using its capability to output the desired format (decimal or binary) seems silly! And deciding to use `strtol()` to output the desired format means the program is complete. As the point of writing this program is to learn, I will find another way to accomplish the goal.
 
+=======
+>>>>>>> main
 ## Starting Point  
 The first thing to do, it seems to me, is to determine the type of the number inputted by the user:
 - int
